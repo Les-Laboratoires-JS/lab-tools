@@ -1,0 +1,15 @@
+    let key = app.getArgument(message, [
+      "add",
+      "gen",
+      "create",
+      "delete",
+      "remove",
+      "rm",
+      "del",
+      "give",
+      "send",
+      "ladder",
+      "top",
+      "leaderboard",
+      "lead",
+    ])
