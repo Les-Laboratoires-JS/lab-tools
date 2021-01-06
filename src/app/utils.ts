@@ -219,6 +219,20 @@ export function calculateMinMaxDaily(combo: number): number[] {
   return [Math.round(min), Math.round(max)]
 }
 
+// Shop
+    
+export type ShopCategory = "Système monétaire" | "Perks"
+    
+export interface ShopItem {
+  price: number
+  name: string
+  callback: "mp" | "bite" | "bite"
+  quantity: number
+  callbackOptions: any
+  description: string
+  category?: ShopCategory
+}
+    
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(toObject)
