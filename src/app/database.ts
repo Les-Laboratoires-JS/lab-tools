@@ -1,5 +1,5 @@
 import Enmap from "enmap"
-import { Item } from "./utils.ts"
+import { ShopItem } from "./utils.ts"
 
 export const cache = new Enmap<string, any>()
 
@@ -8,6 +8,8 @@ export const globals = new Enmap<string, any>({
 })
 
 export const profiles = new Enmap<string, Profile>({ name: "profiles" })
+
+export const shop = new Enmap<string, ShopItem>({ name: "shopItems" })
 
 export const customCommands = new Enmap<string, string>({
   name: "cc",
@@ -50,7 +52,7 @@ export interface Profile {
   daily: Daily
   scores: Scores
   moneyLogs: MoneyLog[]
-  inventory: Item[]
+  inventory: ShopItem[]
 }
 
 export interface MoneyLog {
