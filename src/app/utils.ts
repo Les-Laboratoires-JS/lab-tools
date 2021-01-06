@@ -231,6 +231,7 @@ export interface ShopItem {
   callbackOptions: any
   description: string
   category?: ShopCategory
+  owner: "labs" | string
 }
     
 dayjs.extend(utc)
