@@ -154,10 +154,11 @@ const command: app.Command = {
         return app.transaction(
           taxed,
           targets.map((target) => {
-           if (
-                target === "company:gifi" &&
-                message.author.id !== "272676235946098688"
-            ) target = "gifi"
+            if (
+              target === "company:gifi" &&
+              message.author.id !== "272676235946098688"
+            )
+              target = "gifi"
             return target instanceof app.Discord.GuildMember
               ? target.id
               : target
