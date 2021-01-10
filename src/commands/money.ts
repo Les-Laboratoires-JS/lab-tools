@@ -155,7 +155,7 @@ const command: app.Command = {
           taxed,
           targets.map((target) => {
             if (target instanceof String) {
-              console.log("lol la bite"
+              console.log("lol la bite")
               if (
                 target === "company:gifi" &&
                 message.author.id !== "272676235946098688"
