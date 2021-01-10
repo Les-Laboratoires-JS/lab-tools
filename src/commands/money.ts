@@ -154,12 +154,17 @@ const command: app.Command = {
         return app.transaction(
           taxed,
           targets.map((target) => {
-            if(target instanceof String) {
-              if(target === "company:gifi" && message.author.id !== "272676235946098688") target = "gifi"
+            if (target instanceof String) {
+              if (
+                target === "company:gifi" &&
+                message.author.id !== "272676235946098688"
+              )
+                target = "gifi"
             }
-            return target instanceof app.Discord.GuildMember ? target.id : target
-          }
-          ),
+            return target instanceof app.Discord.GuildMember
+              ? target.id
+              : target
+          }),
           amount,
           (missing) => {
             if (missing) {
@@ -190,7 +195,9 @@ const command: app.Command = {
                   }.${app.code(
                     targets
                       .map((target) => {
-                        return target.toString() === "gifi" ? "company:Gifi" : target.toString()
+                        return target.toString() === "gifi"
+                          ? "company:Gifi"
+                          : target.toString()
                       })
                       .join("\n")
                   )}`
