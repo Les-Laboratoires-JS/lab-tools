@@ -72,8 +72,8 @@ const command: app.Command = {
           return b.name === "Gifi" &&
             !message.content.includes("paradis.fiscal")
             ? app.money.ensure(`gifi`, 0)
-            : app.money.ensure(`company:${b.name}`, 0) - a.name ===
-                "Gifi" && !message.content.includes("paradis.fiscal")
+            : app.money.ensure(`company:${b.name}`, 0) - a.name === "Gifi" &&
+              !message.content.includes("paradis.fiscal")
             ? app.money.ensure(`gifi`, 0)
             : app.money.ensure(`company:${a.name}`, 0)
         })
