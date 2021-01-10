@@ -86,9 +86,13 @@ const command: app.Command = {
                   company.name,
                   `${owner.tag} - ${
                     company.description || "Pas de description"
-                  } - ${company.name === "Gifi" ? Math.round(app.money.ensure(`company:${company.name}`, 100) / 5) : app.money.ensure(`company:${company.name}`, 0)}${
-                    app.currency
-                  }`
+                  } - ${
+                    company.name === "Gifi"
+                      ? Math.round(
+                          app.money.ensure(`company:${company.name}`, 100) / 5
+                        )
+                      : app.money.ensure(`company:${company.name}`, 0)
+                  }${app.currency}`
                 )
               }
               return embed
@@ -138,7 +142,11 @@ const command: app.Command = {
 Nom: ${companyName}
 Owner: ${(await message.client.users.fetch(company.ownerID)).tag}
 Description: ${company.description}
-Money: ${company.name === "Gifi" ? Math.round(app.money.ensure(`company:${company.name}`, 100) / 5) : app.money.ensure(`company:${company.name}`, 0)}${app.currency}
+Money: ${
+          company.name === "Gifi"
+            ? Math.round(app.money.ensure(`company:${company.name}`, 100) / 5)
+            : app.money.ensure(`company:${company.name}`, 0)
+        }${app.currency}
 Bilan 24h: WIP (waiting for Ghom's new money system)
 \`\`\`
           `)
