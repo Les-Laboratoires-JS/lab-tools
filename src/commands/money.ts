@@ -155,12 +155,14 @@ const command: app.Command = {
           taxed,
           targets.map((target) => {
             if (target instanceof String) {
+              console.log("lol la bite"
               if (
                 target === "company:gifi" &&
                 message.author.id !== "272676235946098688"
               )
                 target = "gifi"
             }
+            console.log(target)
             return target instanceof app.Discord.GuildMember
               ? target.id
               : target
