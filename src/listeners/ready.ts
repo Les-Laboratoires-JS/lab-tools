@@ -28,7 +28,7 @@ const listener: app.Listener<"ready"> = {
         let totalPrivateTaxed = 0
 
         for (const [id, money] of app.money.entries()) {
-          if (id === "bank") continue
+          if (id === "bank" || id === "comapny:Gifi") continue
           const tax = id.startsWith("company:")
             ? app.tax.companyTax
             : app.tax.privateTax
