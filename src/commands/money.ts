@@ -81,9 +81,9 @@ const command: app.Command = {
             .setAuthor(`Leaderboard | ${app.currency}`)
             .setDescription(
               app.money
-                .map((money: number, id: string) => ({
+                .map((account: app.Money, id: string) => ({
                   id,
-                  score: money,
+                  score: account.money,
                 }))
                 .filter(
                   (el: { id: string; score: number }) =>
@@ -109,14 +109,14 @@ const command: app.Command = {
       }
 
       case "add":
-        app.money.set("bank", app.money.ensure("bank", 0) + amount)
-
+        app.money.math("bank", "+", amount, "money")
+        app.money.push("bank", {from: "void", amount, date: Date.now()}, "history")
         return message.channel.send(
           `Ok, ${amount}${app.currency} ont été ajoutés à la banque. <:STONKS:772181235526533150>`
         )
       case "remove":
-        app.money.set("bank", app.money.ensure("bank", 0) - amount)
-
+        app.money.math("bank", "-", amount, "money")
+        app.money.push("bank", {from: "void", amount: -amount, date: Date.now()}, "history")
         return message.channel.send(
           `Ok, ${amount}${app.currency} ont été retirés de la banque. <:oui:703398234718208080>`
         )
@@ -198,7 +198,7 @@ const command: app.Command = {
       }
       default:
         const bank = message.content.includes("as bank")
-        const money = app.money.ensure(bank ? "bank" : message.author.id, 0)
+        const money = app.money.ensure(bank ? "bank" : message.author.id, {money: 0, history: []}).money
 
         const { combo } = app.daily.ensure(message.author.id, {
           combo: 0,

@@ -27,7 +27,7 @@ const listener: app.Listener<"ready"> = {
         let totalPrivateTax = 0
         let totalPrivateTaxed = 0
 
-        for (const [id, money] of app.money.entries()) {
+        for (const [id, account] of app.money.entries()) {
           if (id === "bank") continue
           const tax = id.startsWith("company:")
             ? app.tax.companyTax
@@ -36,9 +36,9 @@ const listener: app.Listener<"ready"> = {
             ? id.replace("company:", "")
             : id
 
-          const taxAmount = Math.floor(money * app.tax.privateTax)
+          const taxAmount = Math.floor(account.money * app.tax.privateTax)
 
-          if (money < taxAmount || taxAmount === 0) continue
+          if (account.money < taxAmount || taxAmount === 0) continue
 
           await app.transaction(id, ["bank"], taxAmount)
           if (id.startsWith("company:")) {

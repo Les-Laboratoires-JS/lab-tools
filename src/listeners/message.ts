@@ -122,7 +122,7 @@ const listener: app.Listener<"message"> = {
     }
 
     if (cmd.needMoney) {
-      const userMoney = app.money.ensure(message.author.id, 0)
+      const userMoney = app.money.ensure(message.author.id, {money: 0, history: []}).money
       if (userMoney < cmd.needMoney) {
         return message.channel.send(
           new app.MessageEmbed()

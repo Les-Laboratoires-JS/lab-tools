@@ -11,25 +11,31 @@ export const customCommands = new Enmap<string, string>({
   name: "cc",
 })
 
-export const money = new Enmap<string, number>({ name: "money" })
+export const money = new Enmap<string, Money>({ name: "money" })
 export async function transaction(
   taxed: string,
   paid: string[],
   amount: number,
   callback?: (missing: number) => unknown
 ): Promise<boolean> {
-  const taxedMoney = money.ensure(taxed, 0)
+  const account = money.ensure(taxed, {
+    money: 0,
+    history: []
+  })
 
   const total = paid.length * amount
 
-  if (taxedMoney < total) {
-    await callback?.(total - taxedMoney)
+  if (account.money < total) {
+    await callback?.(total - account.money)
     return false
   }
-  money.set(taxed, taxedMoney - total)
+  money.set(taxed, account.money - total, "money")
+  
 
   paid.forEach((id) => {
-    app.money.set(id, app.money.ensure(id, 0) + amount)
+    money.math(id, "+", amount, "money")
+    money.push(id, {from: taxed, amount: amount, date: Date.now()}, "history")
+    money.push(taxed, {from: id, amount: -amount, date: Date.now()}, "history")
   })
 
   await callback?.(0)
@@ -90,4 +96,15 @@ export interface Company {
 export interface Daily {
   last: number
   combo: number
+}
+
+export interface MoneyLogEntry {
+  from: string
+  amount: number
+  date: number
+}
+
+export interface Money {
+  money: number
+  history: MoneyLogEntry[]
 }
