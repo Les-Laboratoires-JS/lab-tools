@@ -69,10 +69,10 @@ const command: app.Command = {
       }
       case "list": {
         const companies = app.companies.array().sort((a, b) => {
-          return company.name === "Gifi" &&
+          return a.name === "Gifi" &&
             !message.content.includes("paradis.fiscal")
             ? app.money.ensure(`gifi`, 0)
-            : app.money.ensure(`company:${company.name}`, 0) - company.name ===
+            : app.money.ensure(`company:${company.name}`, 0) - b.name ===
                 "Gifi" && !message.content.includes("paradis.fiscal")
             ? app.money.ensure(`gifi`, 0)
             : app.money.ensure(`company:${company.name}`, 0)
