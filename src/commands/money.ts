@@ -155,7 +155,7 @@ const command: app.Command = {
           taxed,
           targets.map((target) => {
             if (
-              target === "company:gifi" &&
+              target === "company:Gifi" &&
               message.author.id !== "272676235946098688"
             )
               target = "gifi"
