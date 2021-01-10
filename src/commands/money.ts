@@ -157,9 +157,7 @@ const command: app.Command = {
            if (
                 target === "company:gifi" &&
                 message.author.id !== "272676235946098688"
-            )
-              target = "gifi"
-            }
+            ) target = "gifi"
             return target instanceof app.Discord.GuildMember
               ? target.id
               : target
