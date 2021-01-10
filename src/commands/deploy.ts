@@ -25,7 +25,7 @@ const command: app.Command = {
         `Déploiement réussi ! <:yay:557124850326437888>\n*Effectué en ${
           Date.now() - timer
         }ms*`
-      )
+      ).then(app.handleMessage)
       app.globals.set("helloChannel", message.channel.id)
       process.exit(0)
     } catch (error) {
@@ -34,7 +34,7 @@ const command: app.Command = {
           `${error.name}: ${error.message}`,
           ""
         )}`
-      )
+      ).then(app.handleMessage)
     }
   },
 }

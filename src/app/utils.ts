@@ -24,7 +24,7 @@ export const general = "620664805400772621"
 export const cobaye = "620640927089688587"
 export const publiclogs = "789522053728305250"
 export const admin = "620658954195828736"
-export const minmaxgap = 15
+export const deleteDelay = 1000*10
 
 export const owners = ["272676235946098688", "352176756922253321"]
 
@@ -37,11 +37,21 @@ export const tax = {
 }
 export const currency = "Ɠ"
 export const royalties = 0.2
+export const minmaxgap = 15
 
 export const codeRegex = /^```(?:js)?\s(.+[^\\])```$/is
 
 export function code(text: string, lang = ""): string {
   return "```" + lang + "\n" + text.replace(/```/g, "\\```") + "\n```"
+}
+
+export function handleMessage(message: Discord.Message) {
+  if(!message.content.includes("🔬")) {
+    setTimeout(() => {
+      message.delete()
+    }, deleteDelay)
+  }
+  return message;
 }
 
 export function getArgument(message: Discord.Message): string | null

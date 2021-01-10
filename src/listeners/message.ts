@@ -139,7 +139,7 @@ const listener: app.Listener<"message"> = {
     }
 
     message.content = message.content.slice(key.length).trim()
-
+    app.handleMessage(message)
     try {
       await cmd.run(message)
     } catch (error) {

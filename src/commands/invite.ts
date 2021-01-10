@@ -27,7 +27,7 @@ const command: app.Command = {
     if (!bot) {
       return message.channel.send(
         "Tu dois donner un identifiant valide ou mentionner un bot !"
-      )
+      ).then(app.handleMessage)
     }
 
     const url = new URL("/oauth2/authorize", "https://discord.com/")
@@ -69,7 +69,7 @@ const command: app.Command = {
         )
         .setThumbnail(bot.displayAvatarURL({ dynamic: true }))
         .setURL(url.toString())
-    )
+    ).then(app.handleMessage)
   },
 }
 

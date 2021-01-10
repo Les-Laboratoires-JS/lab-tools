@@ -12,14 +12,14 @@ const command: app.Command = {
     } else {
       return message.channel.send(
         "C'est `on` ou `off` <:oof:672056824395988992>"
-      )
+      ).then(app.handleMessage)
     }
     const turn = app.cache.get("turn")
     return message.channel.send(
       turn
         ? "Bonjour <:haroldpeek:681598035897221182>"
         : "Au revoir <:harold:556967769304727564>"
-    )
+    ).then(app.handleMessage)
   },
 }
 

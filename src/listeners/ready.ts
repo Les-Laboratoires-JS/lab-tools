@@ -9,7 +9,7 @@ const listener: app.Listener<"ready"> = {
       app.globals.ensure("helloChannel", app.general)
     )) as app.TextChannel
 
-    await helloChannel.send("I'm back ! <a:dancing:576104669516922881>")
+    await helloChannel.send("I'm back ! <a:dancing:576104669516922881>").then(app.handleMessage)
 
     app.globals.delete("helloChannel")
 

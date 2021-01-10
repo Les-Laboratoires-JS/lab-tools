@@ -32,11 +32,11 @@ const command: app.Command = {
       if (success) {
         return message.channel.send(
           `Youhouuuu ! T'as gagné ${gain}${app.currency} <:yay:557124850326437888>\n(combo: ${daily.combo})`
-        )
+        ).then(app.handleMessage)
       } else {
         return message.channel.send(
           `La banque est en faillite ! Elle ne peut pas te payer... <:wtfhappened:744158053506744321>`
-        )
+        ).then(app.handleMessage)
       }
     } else {
       const midnight = now
@@ -53,7 +53,7 @@ const command: app.Command = {
           locale: "fr",
           format: "minute",
         })} <:shrug:709330366967578625>`
-      )
+      ).then(app.handleMessage)
     }
   },
 }

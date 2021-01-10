@@ -9,7 +9,7 @@ const command: app.Command = {
     if (!content || !memberResolvable)
       return message.channel.send(
         "Respecte le format, tout va bien se passer.\n`!fake <member name> say <content>`"
-      )
+      ).then(app.handleMessage)
     app.coolDowns.set(`${this.name}:${message.channel.id}`, {
       time: Date.now(),
       trigger: true,
@@ -25,7 +25,7 @@ const command: app.Command = {
     } else {
       await message.channel.send(
         "Hmmmmmmmm... fail <:harold:556967769304727564>"
-      )
+      ).then(app.handleMessage)
     }
     await message.delete().catch()
     await webhook.delete().catch()

@@ -8,7 +8,7 @@ const command: app.Command = {
       if (message.content.includes("--debug")) {
         await message.channel.send(
           JSON.stringify(Array.from(app.scores.entries())).slice(0, 1999)
-        )
+        ).then(app.handleMessage)
       }
 
       const lines = await Promise.all(
@@ -17,10 +17,10 @@ const command: app.Command = {
         })
       )
 
-      return message.channel.send(lines.join("\n"))
+      return message.channel.send(lines.join("\n")).then(app.handleMessage)
     } else if (message.content.startsWith("add")) {
       if (message.guild.ownerID !== message.author.id) {
-        return message.channel.send("Raté, ya que Ghom qui peut faire ça !")
+        return message.channel.send("Raté, ya que Ghom qui peut faire ça !").then(app.handleMessage)
       }
 
       message.content = message.content.replace("add", "").trim()
@@ -30,19 +30,19 @@ const command: app.Command = {
       if (!name || (type !== "match" && type !== "react") || !target) {
         return message.channel.send(
           "Raté, ça s'utilise comme ça:\n`!counter add [name] match|react [pattern|emoji]`"
-        )
+        ).then(app.handleMessage)
       }
 
       app.counters.set(name, { name, type, target })
 
-      return message.channel.send(`Le compteur de ${name} a bien été ajouté.`)
+      return message.channel.send(`Le compteur de ${name} a bien été ajouté.`).then(app.handleMessage)
     } else if (message.content.startsWith("remove")) {
       const [, name] = message.content.split(/\s+/)
 
-      if (!name) return message.channel.send("Il manque le nom du compteur...")
+      if (!name) return message.channel.send("Il manque le nom du compteur...").then(app.handleMessage)
 
       if (!app.counters.has(name))
-        return message.channel.send(`Le compteur de ${name} n'existe pas.`)
+        return message.channel.send(`Le compteur de ${name} n'existe pas.`).then(app.handleMessage)
 
       app.counters.delete(name)
 
@@ -53,7 +53,7 @@ const command: app.Command = {
 
       return message.channel.send(
         `Ok le compteur de ${name} a bien été supprimé.`
-      )
+      ).then(app.handleMessage)
     } else if (message.content.startsWith("me")) {
       const score = app.scores.ensure(message.author.id, {})
       return message.channel.send(
@@ -85,7 +85,7 @@ const command: app.Command = {
         new app.MessageEmbed()
           .setAuthor(`Leaderboard | ${message.content}`)
           .setDescription(leaderboard)
-      )
+      ).then(app.handleMessage)
     } else if (message.mentions.members && message.mentions.members.size > 0) {
       const target = message.mentions.members.first() as app.GuildMember
       const score = app.scores.ensure(target.id, {})
@@ -99,7 +99,7 @@ const command: app.Command = {
             "total",
             `**${eval(Object.values(score).join(" + ")) || 0}** points.`
           )
-      )
+      ).then(app.handleMessage)
     } else {
       return message.channel.send(
         new app.MessageEmbed().setAuthor(`Leaderboard | Total`).setDescription(
@@ -113,7 +113,7 @@ const command: app.Command = {
             .map((el, i, arr) => app.leaderItem(el, i, arr, "pts"))
             .join("\n")
         )
-      )
+      ).then(app.handleMessage)
     }
   },
 }

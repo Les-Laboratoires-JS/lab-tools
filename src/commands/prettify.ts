@@ -21,11 +21,11 @@ const command: app.Command = {
 
       const prettified = await prettify(code, lang, options)
 
-      await message.channel.send(app.code(prettified, lang))
+      await message.channel.send(app.code(prettified, lang)).then(app.handleMessage)
     } else {
       await message.channel.send(
         "Commande mal utilisée. Place ton code entre balises pour que je sache quel est son language."
-      )
+      ).then(app.handleMessage)
     }
   },
 }
