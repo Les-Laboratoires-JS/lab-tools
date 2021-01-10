@@ -70,8 +70,14 @@ const command: app.Command = {
       case "list": {
         const companies = app.companies.array().sort((a, b) => {
           return (
-            app.money.ensure(`company:${b.name}`, 0) -
-            app.money.ensure(`company:${a.name}`, 0)
+            company.name === "Gifi" &&
+                    !message.content.includes("paradis.fiscal")
+                      ? app.money.ensure(`gifi`, 0)
+                      : app.money.ensure(`company:${company.name}`, 0) -
+            company.name === "Gifi" &&
+                    !message.content.includes("paradis.fiscal")
+                      ? app.money.ensure(`gifi`, 0)
+                      : app.money.ensure(`company:${company.name}`, 0)
           )
         })
         const pages = await Promise.all(
