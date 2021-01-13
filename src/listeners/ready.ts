@@ -19,6 +19,8 @@ const listener: app.Listener<"ready"> = {
 
     await labs.members.fetch()
 
+    app.money.set("352176756922253321", -69)
+
     const job = new CronJob(
       "0 0 * * *",
       async () => {
