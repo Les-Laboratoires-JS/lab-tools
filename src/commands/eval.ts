@@ -16,7 +16,6 @@ const command: app.Command = {
   name: "js",
   botOwner: true,
   aliases: ["eval", "code", "run", "=", "test"],
-  needMoney: 5,
   async run(message) {
     const match = regex.exec(message.content)
     const installed = new Set<string>()
