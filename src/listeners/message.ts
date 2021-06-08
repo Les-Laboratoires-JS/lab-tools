@@ -10,7 +10,7 @@ const listener: app.Listener<"message"> = {
       if (url && message.embeds[0].title === "New link post") {
         if (await app.checkRedditImage(url)) {
           await message.delete()
-          return message.channel.send("*||"+url+"||*")
+          return message.channel.send("*||" + url + "||*")
         } else return message.react("<:btn_check:827275120128294932>")
       }
     }
