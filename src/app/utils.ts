@@ -270,7 +270,7 @@ export async function checkRedditImage(redditURL: string): Promise<boolean> {
   )
     .then((res) => res.json())
     .then((body) => {
-    console.log(body)
-    return body.matches.length >= 1
-  })
+      console.log(body)
+      return body.matches.length >= 1
+    })
 }
