@@ -4,6 +4,19 @@ import yargsParser from "yargs-parser"
 const listener: app.Listener<"message"> = {
   event: "message",
   async call(message) {
+
+    // programmer humor memes check
+    if(message.webhookID && message.channel.id === app.memesChannelID) {
+      const url = message.embeds[0].url
+      if(url && message.embeds[0].title === "New link post") {
+        if(await app.checkRedditImage(url)) {
+          message.channel.send("1000000% c'est un repost, donc les putes de luxe (<&@620658954195828736>) si c'est pas un repost faut me prévenir, et <@!272676235946098688> comment tu vas ? si c'est un repost FIX MOI OU JE TE  BUTE. BISOUS.")
+          // TODO : when we are sure it works, uncomment the line below
+          //message.delete()
+        }
+      }
+    }
+
     if (!app.isCommandMessage(message)) return
 
     if (message.channel.id === app.emoteOnly) {
@@ -31,6 +44,7 @@ const listener: app.Listener<"message"> = {
       await message.react(app.disapproved)
       return
     }
+
 
     const prefix = app.globals.ensure("prefix", process.env.PREFIX)
 

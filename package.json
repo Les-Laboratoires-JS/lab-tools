@@ -16,6 +16,7 @@
     "url": "https://github.com/Les-Laboratoires-JS/lab-tools/issues"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.5.10",
     "cron": "^1.8.2",
     "dayjs": "^1.9.7",
     "discord-eval.ts": "^1.0.14",
@@ -23,6 +24,7 @@
     "dotenv": "^8.2.0",
     "enmap": "^5.8.2",
     "ghom-prettify": "^1.1.1-bite",
+    "node-fetch": "^2.6.1",
     "prettier": "^2.1.2",
     "regex-parser": "^2.2.11",
     "tims": "^2.0.4",

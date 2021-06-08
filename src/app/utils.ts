@@ -9,6 +9,8 @@ import timezone from "dayjs/plugin/timezone"
 import toObject from "dayjs/plugin/toObject"
 import Discord from "discord.js"
 import * as app from "../app"
+import fetch from "node-fetch"
+import * as url from "url"
 
 // Snowflakes
 export const validation = "659513985552351261"
@@ -24,6 +26,7 @@ export const emoteOnly = "811720508239380561"
 export const gameChannel = "833685867502764092"
 export const ghom = "352176756922253321"
 export const minMaxGap = 15
+export const memesChannelID = "623018940662022163"
 
 export const jsCodeBlockRegex = /^```(?:js)?\s(.+[^\\])```$/is
 export const codeBlockRegex = /^```([a-z-]+)?\s(.+[^\\])```$/is
@@ -244,4 +247,25 @@ export async function startGame(client: app.Client) {
   }
 
   client.once("message", listenGame)
+}
+
+// Returns true if repost
+export async function checkRedditImage(redditURL: string): Promise<boolean> {
+  const postId = redditURL.split('/')[4]
+  const options = {
+    filter: true,
+    url: redditURL,
+    postId,
+    same_sub: true,
+    filter_author: true,
+    only_older: false,
+    include_crossposts: false,
+    meme_filter: false,
+    target_match_percent: 90,
+    filter_dead_matches: false,
+    target_days_old: 0
+  }
+  return fetch("https://api.repostsleuth.com/image" + url.format({query: options}))
+    .then(res=>res.json())
+    .then(body=>body.matches.length >= 1)
 }
