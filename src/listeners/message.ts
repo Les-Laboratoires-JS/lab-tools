@@ -9,11 +9,8 @@ const listener: app.Listener<"message"> = {
       const url = message.embeds[0].url
       if (url && message.embeds[0].title === "New link post") {
         if (await app.checkRedditImage(url)) {
-          message.channel.send(
-            "1000000% c'est un repost, donc les putes de luxe (<&@620658954195828736>) si c'est pas un repost faut me prévenir, et <@!272676235946098688> comment tu vas ? si c'est un repost FIX MOI OU JE TE  BUTE. BISOUS."
-          )
-          // TODO : when we are sure it works, uncomment the line below
-          //message.delete()
+          await message.delete()
+          return message.channel.send("*||"+url+"||*")
         } else return message.react("<:btn_check:827275120128294932>")
       }
     }
