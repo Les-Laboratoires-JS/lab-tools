@@ -251,7 +251,7 @@ export async function startGame(client: app.Client) {
 
 // Returns true if repost
 export async function checkRedditImage(redditURL: string): Promise<boolean> {
-  const postId = redditURL.split('/')[4]
+  const postId = redditURL.split("/")[4]
   const options = {
     filter: true,
     url: redditURL,
@@ -263,9 +263,11 @@ export async function checkRedditImage(redditURL: string): Promise<boolean> {
     meme_filter: false,
     target_match_percent: 90,
     filter_dead_matches: false,
-    target_days_old: 0
+    target_days_old: 0,
   }
-  return fetch("https://api.repostsleuth.com/image" + url.format({query: options}))
-    .then(res=>res.json())
-    .then(body=>body.matches.length >= 1)
+  return fetch(
+    "https://api.repostsleuth.com/image" + url.format({ query: options })
+  )
+    .then((res) => res.json())
+    .then((body) => body.matches.length >= 1)
 }
