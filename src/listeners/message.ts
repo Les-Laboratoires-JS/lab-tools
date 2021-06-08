@@ -14,7 +14,7 @@ const listener: app.Listener<"message"> = {
           )
           // TODO : when we are sure it works, uncomment the line below
           //message.delete()
-        }
+        } else return message.channel.send("bite")
       }
     }
 
