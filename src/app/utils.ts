@@ -269,5 +269,5 @@ export async function checkRedditImage(redditURL: string): Promise<boolean> {
     "https://api.repostsleuth.com/image" + url.format({ query: options })
   )
     .then((res) => res.json())
-    .then((body) => body.matches.length >= 1)
+    .then((body) => body?.matches?.length >= 1)
 }
