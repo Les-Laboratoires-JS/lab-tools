@@ -9,12 +9,17 @@ const command: app.Command = {
     return new app.Paginator(
       app.Paginator.divider(
         guildInvites.map((invite, key) => {
-          const name = (invite.inviter?.tag ?? "inconnu").substring(0,10)
+          const name = (invite.inviter?.tag ?? "inconnu").substring(0, 10)
           const rate = (
             (invite?.uses ?? 0) /
-            ((Date.now() - (invite?.createdTimestamp || 0)) / 1000 / 60 / 60 / 24 / 7)
+            ((Date.now() - (invite?.createdTimestamp || 0)) /
+              1000 /
+              60 /
+              60 /
+              24 /
+              7)
           ).toFixed(2)
-          const index = guildInvites.keyArray().indexOf(key)+1
+          const index = guildInvites.keyArray().indexOf(key) + 1
           return `${index}. \`${invite.code}\`, par \`${name}\`, invite \`${rate} / semaine\``
         }),
         10
@@ -28,7 +33,7 @@ const command: app.Command = {
       message.channel,
       (reaction, user) => user.id === message.author.id
     )
-  }
+  },
 }
 
 module.exports = command
