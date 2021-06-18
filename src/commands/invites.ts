@@ -16,7 +16,7 @@ const command: app.Command = {
     return new app.Paginator(
       app.Paginator.divider(
         guildInvites
-          .sort((a, b) => calculateRate(a) - calculateRate(b))
+          .sort((a, b) => calculateRate(b) - calculateRate(a))
           .map((invite, key) => {
           const name = (invite.inviter?.tag ?? "inconnu").substring(0,10)
           const rate = calculateRate(invite).toFixed(2)
