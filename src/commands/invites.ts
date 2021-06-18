@@ -1,5 +1,12 @@
 import * as app from "../app"
 
+function calculateRate(invite: app.Invite): number {
+  return (
+    (invite?.uses ?? 0) /
+    ((Date.now() - (invite?.createdTimestamp || 0)) / 1000 / 60 / 60 / 24 / 7)
+  )
+}
+
 const command: app.Command = {
   name: "invites",
   description: "",
@@ -8,12 +15,11 @@ const command: app.Command = {
 
     return new app.Paginator(
       app.Paginator.divider(
-        guildInvites.map((invite, key) => {
+        guildInvites
+          .sort((a, b) => calculateRate(a) - calculateRate(b))
+          .map((invite, key) => {
           const name = (invite.inviter?.tag ?? "inconnu").substring(0,10)
-          const rate = (
-            (invite?.uses ?? 0) /
-            ((Date.now() - (invite?.createdTimestamp || 0)) / 1000 / 60 / 60 / 24 / 7)
-          ).toFixed(2)
+          const rate = calculateRate(invite).toFixed(2)
           const index = guildInvites.keyArray().indexOf(key)+1
           return `${index}. \`${invite.code}\`, par \`${name}\`, invite \`${rate} / semaine\``
         }),
