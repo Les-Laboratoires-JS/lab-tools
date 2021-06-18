@@ -8,13 +8,14 @@ const command: app.Command = {
 
     return new app.Paginator(
       app.Paginator.divider(
-        guildInvites.map((invite, index) => {
-          const name = (invite.inviter?.username ?? "inconnu").substring(0,10)
+        guildInvites.map((invite, key) => {
+          const name = (invite.inviter?.tag ?? "inconnu").substring(0,10)
           const rate = (
             invite?.uses ?? 0 /
             ((Date.now() - (invite?.createdTimestamp ?? Date.now())) / 1000 / 60 / 60 / 24 / 7)
           ).toFixed(2)
-          return `${index+1}. ${invite.code}, par ${name}, invite ${rate} / semaine`
+          const index = guildInvites.keyArray().indexOf(key)+1
+          return `${index}. \`${invite.code}\`, par \`${name}\`, invite \`${rate} / semaine\``
         }),
         10
       ).map((page) => {
