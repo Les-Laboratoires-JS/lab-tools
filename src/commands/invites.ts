@@ -18,11 +18,11 @@ const command: app.Command = {
         guildInvites
           .sort((a, b) => calculateRate(a) - calculateRate(b))
           .map((invite, key) => {
-          const name = (invite.inviter?.tag ?? "inconnu").substring(0,10)
-          const rate = calculateRate(invite).toFixed(2)
-          const index = guildInvites.keyArray().indexOf(key)+1
-          return `${index}. \`${invite.code}\`, par \`${name}\`, invite \`${rate} / semaine\``
-        }),
+            const name = (invite.inviter?.tag ?? "inconnu").substring(0, 10)
+            const rate = calculateRate(invite).toFixed(2)
+            const index = guildInvites.keyArray().indexOf(key) + 1
+            return `${index}. \`${invite.code}\`, par \`${name}\`, invite \`${rate} / semaine\``
+          }),
         10
       ).map((page) => {
         return new app.MessageEmbed()
@@ -34,7 +34,7 @@ const command: app.Command = {
       message.channel,
       (reaction, user) => user.id === message.author.id
     )
-  }
+  },
 }
 
 module.exports = command
